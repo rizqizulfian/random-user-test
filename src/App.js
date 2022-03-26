@@ -4,10 +4,10 @@ import Table from "./components/Table/Table";
 
 const App = () => {
   return (
-    <Fragment>
+    <div className="m-8">
       <Header />
       <Table />
-    </Fragment>
+    </div>
   );
 }
 

@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { usersActions } from '../../store/users/users';
+import { URL } from './constants';
 import * as styles from './Header.css';
 
 const Header = () => {
+  const [gender, setGender] = useState('all');
+
+  const genderHandlerOnChange = (e) => {
+    setGender(e.target.value);
+  };
+
+  const dispatch = useDispatch();
+
+  const fetchUserData = async () => {
+    const resp = await fetch(URL(gender));
+    const user = await resp.json();
+    dispatch(usersActions.setUsers(user.results));
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [gender]);
+
   return (
     <div className={styles.container}>
       <div className={styles.subContainer}>
@@ -29,9 +50,11 @@ const Header = () => {
         <select
           id="gender"
           className={styles.inputGenderSelect}
+          onChange={genderHandlerOnChange}
         >
-          <option>Male</option>
-          <option>Female</option>
+          <option value="all">ALL</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
         </select>
       </div>
 

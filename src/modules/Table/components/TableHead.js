@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import * as styles from '../Table.css';
 import { RenderThItem } from './RenderComponents';
+import { usersActions } from '../../../store/users/users';
+import { useDispatch } from 'react-redux';
 
 const TableHead = () => {
+  const dispatch = useDispatch();
   const [isSortName, setIsSortName] = useState(null);
   const [isSortEmail, setIsSortEmail] = useState(null);
   const [isSortGender, setIsSortGender] = useState(null);
@@ -12,28 +15,40 @@ const TableHead = () => {
     setIsSortEmail(null);
     setIsSortGender(null);
     setIsSortRegisteredDate(null);
-    setIsSortName(prevState => !prevState);
+    setIsSortName(prevState => {
+      dispatch(usersActions.sortUsersName(!prevState))
+      return !prevState
+    });
   };
 
   const onClickHandlerIsSortEmail = () => {
     setIsSortName(null);
     setIsSortGender(null);
     setIsSortRegisteredDate(null);
-    setIsSortEmail(prevState => !prevState);
+    setIsSortEmail(prevState => {
+      dispatch(usersActions.sortUsersEmail(!prevState))
+      return !prevState
+    });
   };
 
   const onClickHandlerIsSortGender = () => {
     setIsSortName(null);
     setIsSortEmail(null);
     setIsSortRegisteredDate(null);
-    setIsSortGender(prevState => !prevState);
+    setIsSortGender(prevState => {
+      dispatch(usersActions.sortUsersGender(!prevState))
+      return !prevState
+    });
   };
 
   const onClickHandlerIsSortRegisteredDate = () => {
     setIsSortName(null);
     setIsSortEmail(null);
     setIsSortGender(null);
-    setIsSortRegisteredDate(prevState => !prevState);
+    setIsSortRegisteredDate(prevState => {
+      dispatch(usersActions.sortUsersRegisteredDate(!prevState))
+      return !prevState
+    });
   };
 
   return (

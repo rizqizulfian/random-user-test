@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 const Pagination = () => {
   const dispatch = useDispatch();
   const [currentIndex, setCurrentIndex] = useState(1);
+  const [isTouched, setIsTouched] = useState(false);
+
   const stylesButton1 = currentIndex === 1 ? styles.paginationsActive : styles.paginations;
   const stylesButton2 = currentIndex === 2 ? styles.paginationsActive : styles.paginations;
 
@@ -24,10 +26,10 @@ const Pagination = () => {
   };
 
   const fetchUserData = async (page, pageSize) => {
-    console.log('ini masuk oi')
     const resp = await fetch(urlRandomUser({ page, pageSize }));
     const user = await resp.json();
     dispatch(usersActions.setUsers(user.results));
+    dispatch(usersActions.setResetFilter())
   };
 
   return (

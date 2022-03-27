@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { url } from './constants';
+import { URL } from './constants';
 
 import Pagination from '../../components/pagination/Pagination';
 import * as styles from './Table.css';
@@ -10,7 +10,7 @@ const Table = () => {
   const [users, setUsers] = useState([]);
 
   const fetchUserData = async () => {
-    const resp = await fetch(url);
+    const resp = await fetch(URL);
     const user = await resp.json();
     setUsers(user.results);
   };

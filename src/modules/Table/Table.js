@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { usersActions } from '../../store/users';
 import { URL } from './constants';
 
 import Pagination from '../../components/pagination/Pagination';
@@ -7,12 +9,13 @@ import TableBody from './components/TableBody';
 import TableHead from './components/TableHead';
 
 const Table = () => {
-  const [users, setUsers] = useState([]);
+  const dispatch = useDispatch();
+  const users = useSelector(state => state.users);
 
   const fetchUserData = async () => {
     const resp = await fetch(URL);
     const user = await resp.json();
-    setUsers(user.results);
+    dispatch(usersActions.setUsers(user.results));
   };
 
   useEffect(() => {
@@ -24,8 +27,9 @@ const Table = () => {
       <div className={styles.containerTable}>
         <table className={styles.table}>
           <TableHead />
-          <TableBody users={users} />
+          {users && <TableBody users={users} />}
         </table>
+        {users ? '' : <span className="grid justify-items-center border-b py-3 text-sm text-gray-600">Loading...</span>}
       </div>
       <Pagination />
     </>

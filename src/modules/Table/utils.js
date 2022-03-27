@@ -1,3 +1,5 @@
+import { SORT_ICONS } from './constants';
+
 export const padTo2Digits = (num) => {
   return num.toString().padStart(2, '0');
 }
@@ -17,3 +19,9 @@ export const formatDate = (date) => {
     ].join(':')
   );
 }
+
+export const renderIcons = ({ state }) => {
+  if (state === null) return SORT_ICONS.default;
+  else if (state) return SORT_ICONS.active;
+  else return SORT_ICONS.inActive;
+};

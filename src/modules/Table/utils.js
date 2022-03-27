@@ -25,3 +25,7 @@ export const renderIcons = ({ state }) => {
   else if (state) return SORT_ICONS.active;
   else return SORT_ICONS.inActive;
 };
+
+export const stylesTdRow = (name, activeRow, styles) => {
+  return activeRow === name ? `${styles} bg-gray-100 border` : styles;
+};

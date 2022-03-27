@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { usersActions } from '../../store/users/users';
 import { urlRandomUser } from '../../utils/utils';
@@ -8,9 +8,11 @@ import * as styles from './Header.css';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [reset, setReset] = useState(false);
 
   const genderHandlerOnChange = (e) => {
-    fetchUserData(e.target.value)
+    setReset(false);
+    fetchUserData(e.target.value);
   };
 
   const fetchUserData = async (gender) => {
@@ -26,6 +28,11 @@ const Header = () => {
   const debouncedOnChangeSearch = debounce((e) => {
     fetchSearchData(e.target.value)
   }, 500);
+
+  const onClickResetFilterButton = () => {
+    setReset(true);
+    dispatch(usersActions.setResetFilter());
+  };
 
   return (
     <div className={styles.container}>
@@ -57,7 +64,7 @@ const Header = () => {
           className={styles.inputGenderSelect}
           onChange={genderHandlerOnChange}
         >
-          <option value="all">ALL</option>
+          <option value="all" selected={reset ? 'selected' : ''}>ALL</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
@@ -65,7 +72,7 @@ const Header = () => {
 
       <div className={styles.subContainer}>
         <label className={styles.labels}>‎‎ㅤ</label>
-        <button class={styles.resetFilterButtons}>
+        <button class={styles.resetFilterButtons} onClick={onClickResetFilterButton}>
           Reset Filter
         </button>
       </div>

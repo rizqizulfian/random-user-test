@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as styles from '../Table.css';
 import { RenderThItem } from './RenderComponents';
 import { usersActions } from '../../../store/users/users';
@@ -11,6 +11,14 @@ const TableHead = () => {
   const [isSortGender, setIsSortGender] = useState(null);
   const [isSortRegisteredDate, setIsSortRegisteredDate] = useState(null);
   const activeRow = useSelector(state => state.activeRow);
+  const isReset = useSelector(state => state.isReset);
+
+  useEffect(() => {
+    setIsSortName(null);
+    setIsSortEmail(null);
+    setIsSortGender(null);
+    setIsSortRegisteredDate(null);
+  }, [isReset]);
 
   const onClickHandlerIsSortName = () => {
     setIsSortEmail(null);

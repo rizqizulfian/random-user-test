@@ -9,6 +9,7 @@ import {
 
 const initialState = {
   users: null,
+  activeRow: '',
 };
 
 const usersSlice = createSlice({
@@ -43,6 +44,9 @@ const usersSlice = createSlice({
 
       sortRegisteredDate(state.users, payload);
     },
+    setActiveRow(state, action) {
+      state.activeRow = action.payload;
+    }
   }
 });
 

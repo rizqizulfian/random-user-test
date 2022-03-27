@@ -8,4 +8,4 @@ export const wrapperTitle = 'flex justify-between';
 
 export const trTbody = 'bg-white border-b hover:bg-gray-100';
 export const scopeRow = 'px-6 py-4 font-medium';
-export const td = 'px-6 py-4';
+export const td = 'px-6 py-4 border-b';

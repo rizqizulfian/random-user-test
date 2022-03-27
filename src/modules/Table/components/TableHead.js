@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as styles from '../Table.css';
 import { RenderThItem } from './RenderComponents';
 import { usersActions } from '../../../store/users/users';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TableHead = () => {
   const dispatch = useDispatch();
@@ -10,6 +10,7 @@ const TableHead = () => {
   const [isSortEmail, setIsSortEmail] = useState(null);
   const [isSortGender, setIsSortGender] = useState(null);
   const [isSortRegisteredDate, setIsSortRegisteredDate] = useState(null);
+  const activeRow = useSelector(state => state.activeRow);
 
   const onClickHandlerIsSortName = () => {
     setIsSortEmail(null);
@@ -19,6 +20,7 @@ const TableHead = () => {
       dispatch(usersActions.sortUsersName(!prevState))
       return !prevState
     });
+    dispatch(usersActions.setActiveRow('Name'));
   };
 
   const onClickHandlerIsSortEmail = () => {
@@ -29,6 +31,7 @@ const TableHead = () => {
       dispatch(usersActions.sortUsersEmail(!prevState))
       return !prevState
     });
+    dispatch(usersActions.setActiveRow('Email'));
   };
 
   const onClickHandlerIsSortGender = () => {
@@ -39,6 +42,7 @@ const TableHead = () => {
       dispatch(usersActions.sortUsersGender(!prevState))
       return !prevState
     });
+    dispatch(usersActions.setActiveRow('Gender'));
   };
 
   const onClickHandlerIsSortRegisteredDate = () => {
@@ -49,6 +53,7 @@ const TableHead = () => {
       dispatch(usersActions.sortUsersRegisteredDate(!prevState))
       return !prevState
     });
+    dispatch(usersActions.setActiveRow('Registered Date'));
   };
 
   return (
@@ -57,10 +62,10 @@ const TableHead = () => {
         <th scope="col" className={styles.th}>
           Username
         </th>
-        <RenderThItem name='Name' onClickHandler={onClickHandlerIsSortName} state={isSortName} />
-        <RenderThItem name='Email' onClickHandler={onClickHandlerIsSortEmail} state={isSortEmail} />
-        <RenderThItem name='Gender' onClickHandler={onClickHandlerIsSortGender} state={isSortGender} />
-        <RenderThItem name='Registered Date' onClickHandler={onClickHandlerIsSortRegisteredDate} state={isSortRegisteredDate} />
+        <RenderThItem name='Name' onClickHandler={onClickHandlerIsSortName} state={isSortName} activeRow={activeRow} />
+        <RenderThItem name='Email' onClickHandler={onClickHandlerIsSortEmail} state={isSortEmail} activeRow={activeRow} />
+        <RenderThItem name='Gender' onClickHandler={onClickHandlerIsSortGender} state={isSortGender} activeRow={activeRow} />
+        <RenderThItem name='Registered Date' onClickHandler={onClickHandlerIsSortRegisteredDate} state={isSortRegisteredDate} activeRow={activeRow} />
       </tr>
     </thead>
   );

@@ -3,6 +3,7 @@ import * as styles from '../Table.css';
 import { RenderThItem } from './RenderComponents';
 import { usersActions } from '../../../store/users/users';
 import { useDispatch, useSelector } from 'react-redux';
+import { urlRandomUser } from '../../../utils/utils';
 
 const TableHead = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const TableHead = () => {
     setIsSortRegisteredDate(null);
   }, [isReset]);
 
-  const onClickHandlerIsSortName = () => {
+  const onClickHandlerIsSortName = async () => {
     setIsSortEmail(null);
     setIsSortGender(null);
     setIsSortRegisteredDate(null);
@@ -29,9 +30,12 @@ const TableHead = () => {
       return !prevState
     });
     dispatch(usersActions.setActiveRow('Name'));
+    // just trigger api call
+    const sortOrder = !isSortName ? 'ascend' : 'descend';
+    await fetch(urlRandomUser({ sortBy: 'name', sortOrder }));
   };
 
-  const onClickHandlerIsSortEmail = () => {
+  const onClickHandlerIsSortEmail = async () => {
     setIsSortName(null);
     setIsSortGender(null);
     setIsSortRegisteredDate(null);
@@ -40,9 +44,12 @@ const TableHead = () => {
       return !prevState
     });
     dispatch(usersActions.setActiveRow('Email'));
+    // just trigger api call
+    const sortOrder = !isSortEmail ? 'ascend' : 'descend';
+    await fetch(urlRandomUser({ sortBy: 'email', sortOrder }));
   };
 
-  const onClickHandlerIsSortGender = () => {
+  const onClickHandlerIsSortGender = async () => {
     setIsSortName(null);
     setIsSortEmail(null);
     setIsSortRegisteredDate(null);
@@ -51,9 +58,12 @@ const TableHead = () => {
       return !prevState
     });
     dispatch(usersActions.setActiveRow('Gender'));
+    // just trigger api call
+    const sortOrder = !isSortGender ? 'ascend' : 'descend';
+    await fetch(urlRandomUser({ sortBy: 'gender', sortOrder }));
   };
 
-  const onClickHandlerIsSortRegisteredDate = () => {
+  const onClickHandlerIsSortRegisteredDate = async () => {
     setIsSortName(null);
     setIsSortEmail(null);
     setIsSortGender(null);
@@ -62,6 +72,9 @@ const TableHead = () => {
       return !prevState
     });
     dispatch(usersActions.setActiveRow('Registered Date'));
+    // just trigger api call
+    const sortOrder = !isSortRegisteredDate ? 'ascend' : 'descend';
+    await fetch(urlRandomUser({ sortBy: 'registered_date', sortOrder }));
   };
 
   return (

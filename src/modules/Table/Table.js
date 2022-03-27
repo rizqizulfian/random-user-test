@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersActions } from '../../store/users/users';
-import { URL } from './constants';
+import { urlRandomUser } from '../../utils/utils';
 
 import Pagination from '../../components/pagination/Pagination';
 import * as styles from './Table.css';
@@ -13,7 +13,7 @@ const Table = () => {
   const users = useSelector(state => state.users);
 
   const fetchUserData = async () => {
-    const resp = await fetch(URL);
+    const resp = await fetch(urlRandomUser({}));
     const user = await resp.json();
     dispatch(usersActions.setUsers(user.results));
   };

@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { usersActions } from '../../store/users/users';
-import { URL } from './constants';
+import { urlRandomUser } from '../../utils/utils';
+
+import debounce from 'lodash.debounce';
 import * as styles from './Header.css';
 
 const Header = () => {
-  const [gender, setGender] = useState('all');
-
-  const genderHandlerOnChange = (e) => {
-    setGender(e.target.value);
-  };
-
   const dispatch = useDispatch();
 
-  const fetchUserData = async () => {
-    const resp = await fetch(URL(gender));
+  const genderHandlerOnChange = (e) => {
+    fetchUserData(e.target.value)
+  };
+
+  const fetchUserData = async (gender) => {
+    const resp = await fetch(urlRandomUser({ gender }));
     const user = await resp.json();
     dispatch(usersActions.setUsers(user.results));
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, [gender]);
+  const fetchSearchData = async (value) => {
+    const resp = await fetch(urlRandomUser({ keyword: value }));
+  };
+
+  const debouncedOnChangeSearch = debounce((e) => {
+    fetchSearchData(e.target.value)
+  }, 500);
 
   return (
     <div className={styles.container}>
@@ -33,6 +37,7 @@ const Header = () => {
             name="search"
             id="search"
             className={styles.inputSearch}
+            onChange={debouncedOnChangeSearch}
             placeholder="Search..."
           />
           <div className={styles.inputSearchWrapperIcon}>

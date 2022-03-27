@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as styles from '../Table.css';
-import RenderIcons from './RenderIcons';
+import { RenderThItem } from './RenderComponents';
 
 const TableHead = () => {
   const [isSortName, setIsSortName] = useState(null);
@@ -42,38 +42,10 @@ const TableHead = () => {
         <th scope="col" className={styles.th}>
           Username
         </th>
-        <th scope="col" className={styles.th}>
-          <div className={styles.wrapperTitle}>
-            <span className={styles.spanTitle}>Name</span>
-            <button onClick={onClickHandlerIsSortName}>
-              <RenderIcons state={isSortName} />
-            </button>
-          </div>
-        </th>
-        <th scope="col" className={styles.th}>
-          <div className={styles.wrapperTitle}>
-            <span className={styles.spanTitle}>Email</span>
-            <button onClick={onClickHandlerIsSortEmail}>
-              <RenderIcons state={isSortEmail} />
-            </button>
-          </div>
-        </th>
-        <th scope="col" className={styles.th}>
-          <div className={styles.wrapperTitle}>
-            <span className={styles.spanTitle}>Gender</span>
-            <button onClick={onClickHandlerIsSortGender}>
-              <RenderIcons state={isSortGender} />
-            </button>
-          </div>
-        </th>
-        <th scope="col" className={styles.th}>
-          <div className={styles.wrapperTitle}>
-            <span className={styles.spanTitle}>Registered Date</span>
-            <button onClick={onClickHandlerIsSortRegisteredDate}>
-              <RenderIcons state={isSortRegisteredDate} />
-            </button>
-          </div>
-        </th>
+        <RenderThItem name='Name' onClickHandler={onClickHandlerIsSortName} state={isSortName} />
+        <RenderThItem name='Email' onClickHandler={onClickHandlerIsSortEmail} state={isSortEmail} />
+        <RenderThItem name='Gender' onClickHandler={onClickHandlerIsSortGender} state={isSortGender} />
+        <RenderThItem name='Registered Date' onClickHandler={onClickHandlerIsSortRegisteredDate} state={isSortRegisteredDate} />
       </tr>
     </thead>
   );

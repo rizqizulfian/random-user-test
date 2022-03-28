@@ -12,6 +12,8 @@ const initialState = {
   users: null,
   activeRow: '',
   isReset: false,
+  usersPage: [],
+  isLoading: true,
 };
 
 const usersSlice = createSlice({
@@ -19,10 +21,16 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     setUsers(state, action) {
+      console.log('ini masuk setUsers')
+      const { payload } = action;
       state.isReset = false;
-
-      state.usersDefault = action.payload;
-      state.users = action.payload
+      if (payload.page === 2) {
+        state.users = payload.user;
+        state.usersPage = [[...state.usersDefault], [...payload.user]];
+      } else {
+        state.usersDefault = payload.user;
+        state.users = payload.user;
+      }
     },
     sortUsersName(state, action) {
       state.isReset = false;
@@ -61,6 +69,14 @@ const usersSlice = createSlice({
       state.activeRow = '';
       state.isReset = true;
       state.users = [...state.usersDefault];
+    },
+    getUserPage(state, action) {
+      console.log('ini masuk getUserPage')
+      state.usersDefault = [...state.usersPage[action.payload - 1]];
+      state.users = [...state.usersPage[action.payload - 1]];
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload;
     }
   }
 });

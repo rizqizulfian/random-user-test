@@ -11,11 +11,14 @@ import TableHead from './components/TableHead';
 const Table = () => {
   const dispatch = useDispatch();
   const users = useSelector(state => state.users);
+  const isLoading = useSelector(state => state.isLoading);
 
   const fetchUserData = async () => {
+    dispatch(usersActions.setIsLoading(true));
     const resp = await fetch(urlRandomUser({}));
     const user = await resp.json();
-    dispatch(usersActions.setUsers(user.results));
+    dispatch(usersActions.setUsers({ user: user.results }));
+    dispatch(usersActions.setIsLoading(false));
   };
 
   useEffect(() => {
@@ -27,9 +30,9 @@ const Table = () => {
       <div className={styles.containerTable}>
         <table className={styles.table}>
           <TableHead />
-          {users && <TableBody users={users} />}
+          {!isLoading && users && <TableBody users={users} />}
         </table>
-        {users ? '' : <span className="grid justify-items-center border-b py-3 text-sm text-gray-600">Loading...</span>}
+        {isLoading && <span className="grid justify-items-center border-b py-3 text-sm text-gray-600">Loading...</span>}
       </div>
       <Pagination />
     </>

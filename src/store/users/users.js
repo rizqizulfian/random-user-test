@@ -11,7 +11,6 @@ import {
 const initialState = {
   usersDefault: null,
   users: null,
-  usersSearch: null,
   activeRow: '',
   isReset: false,
   usersPage: [],
@@ -26,12 +25,10 @@ const usersSlice = createSlice({
       const { payload } = action;
       state.isReset = false;
       if (payload.page === 2) {
-        state.users = payload.user;
         state.usersPage = [[...state.usersDefault], [...payload.user]];
-      } else {
-        state.usersDefault = payload.user;
-        state.users = payload.user;
       }
+      state.usersDefault = payload.user;
+      state.users = payload.user;
     },
     sortUsersName(state, action) {
       state.isReset = false;
@@ -79,8 +76,12 @@ const usersSlice = createSlice({
       state.isLoading = action.payload;
     },
     searchByUsername(state, action) {
-      const result = searchKeyword(action.payload.keyword, (state.usersDefault || state.users));
-      state.users = result;
+      if (action.payload.keyword) {
+        const result = searchKeyword(action.payload.keyword, state.users);
+        state.users = result;
+      } else {
+        state.users = state.usersDefault;
+      }
     }
   }
 });

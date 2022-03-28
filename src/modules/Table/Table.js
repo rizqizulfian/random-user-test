@@ -32,6 +32,7 @@ const Table = () => {
           <TableHead />
           {!isLoading && users && <TableBody users={users} />}
         </table>
+        {!isLoading && (users.length === 0) && <span className="grid justify-items-center border-b py-3 text-sm text-gray-600">No Data Found</span>}
         {isLoading && <span className="grid justify-items-center border-b py-3 text-sm text-gray-600">Loading...</span>}
       </div>
       <Pagination />

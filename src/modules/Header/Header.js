@@ -24,8 +24,10 @@ const Header = () => {
   };
 
   const fetchSearchData = async (value) => {
+    dispatch(usersActions.setIsLoading(true));
     const resp = await fetch(urlRandomUser({ keyword: value }));
     dispatch(usersActions.searchByUsername({ keyword: value }));
+    dispatch(usersActions.setIsLoading(false));
   };
 
   const debouncedOnChangeSearch = debounce((e) => {

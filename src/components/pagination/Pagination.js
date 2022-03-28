@@ -13,7 +13,7 @@ const Pagination = () => {
   const stylesButton1 = currentIndex === 1 ? styles.paginationsActive : styles.paginations;
   const stylesButton2 = currentIndex === 2 ? styles.paginationsActive : styles.paginations;
 
-  // refer to preview of project, it only show 2 paginations
+  // refer to preview of project, it only contains 2 paginations
   // so we hardcode with 2 page and using same button handler
   const buttonClickHandler1 = () => {
     (currentIndex !== 1) && setCurrentIndex(1);
@@ -23,13 +23,20 @@ const Pagination = () => {
   const buttonClickHandler2 = () => {
     (currentIndex !== 2) && setCurrentIndex(2);
     (currentIndex !== 2) && fetchUserData(2, 5);
+    setIsTouched(true);
   };
 
   const fetchUserData = async (page, pageSize) => {
-    const resp = await fetch(urlRandomUser({ page, pageSize }));
-    const user = await resp.json();
-    dispatch(usersActions.setUsers(user.results));
-    dispatch(usersActions.setResetFilter())
+    dispatch(usersActions.setIsLoading(true));
+    if (!isTouched) {
+      const resp = await fetch(urlRandomUser({ page, pageSize }));
+      const user = await resp.json();
+      dispatch(usersActions.setUsers({ user: user.results, page }));
+    } else {
+      dispatch(usersActions.getUserPage(page));
+    }
+    dispatch(usersActions.setIsLoading(false));
+
   };
 
   return (

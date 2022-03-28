@@ -16,18 +16,21 @@ const Header = () => {
   };
 
   const fetchUserData = async (gender) => {
+    dispatch(usersActions.setIsLoading(true));
     const resp = await fetch(urlRandomUser({ gender }));
     const user = await resp.json();
-    dispatch(usersActions.setUsers(user.results));
+    dispatch(usersActions.setUsers({ user: user.results }));
+    dispatch(usersActions.setIsLoading(false));
   };
 
   const fetchSearchData = async (value) => {
     const resp = await fetch(urlRandomUser({ keyword: value }));
+    dispatch(usersActions.searchByUsername({ keyword: value }));
   };
 
   const debouncedOnChangeSearch = debounce((e) => {
-    fetchSearchData(e.target.value)
-  }, 500);
+    fetchSearchData(e.target.value);
+  }, 300);
 
   const onClickResetFilterButton = () => {
     setReset(true);

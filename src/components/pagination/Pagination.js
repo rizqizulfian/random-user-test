@@ -29,12 +29,10 @@ const Pagination = () => {
   const fetchUserData = async (page, pageSize) => {
     dispatch(usersActions.setIsLoading(true));
     if (!isTouched) {
-      console.log('ini isTouched', page)
       const resp = await fetch(urlRandomUser({ page, pageSize }));
       const user = await resp.json();
-      dispatch(usersActions.setUsers({user: user.results, page}));
+      dispatch(usersActions.setUsers({ user: user.results, page }));
     } else {
-      console.log('ini else isTouched', page)
       dispatch(usersActions.getUserPage(page));
     }
     dispatch(usersActions.setIsLoading(false));

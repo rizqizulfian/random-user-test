@@ -4,12 +4,14 @@ import {
   sortEmail,
   sortGender,
   sortName,
-  sortRegisteredDate
+  sortRegisteredDate,
+  searchKeyword,
 } from './utils';
 
 const initialState = {
   usersDefault: null,
   users: null,
+  usersSearch: null,
   activeRow: '',
   isReset: false,
   usersPage: [],
@@ -21,7 +23,6 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     setUsers(state, action) {
-      console.log('ini masuk setUsers')
       const { payload } = action;
       state.isReset = false;
       if (payload.page === 2) {
@@ -71,12 +72,15 @@ const usersSlice = createSlice({
       state.users = [...state.usersDefault];
     },
     getUserPage(state, action) {
-      console.log('ini masuk getUserPage')
       state.usersDefault = [...state.usersPage[action.payload - 1]];
       state.users = [...state.usersPage[action.payload - 1]];
     },
     setIsLoading(state, action) {
       state.isLoading = action.payload;
+    },
+    searchByUsername(state, action) {
+      const result = searchKeyword(action.payload.keyword, (state.usersDefault || state.users));
+      state.users = result;
     }
   }
 });

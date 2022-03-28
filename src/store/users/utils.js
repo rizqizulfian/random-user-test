@@ -113,3 +113,14 @@ export const sortRegisteredDate = (users, payload) => {
   if (payload) users.sort(sortAscendingRegisteredDate);
   else users.sort(sortDescendingRegisteredDate);
 };
+
+export const searchKeyword = (keyword, users) => {
+  let results = []
+
+  for (const element of users) {
+    if (element.login.username.includes(keyword)) {
+      results.push(element);
+    }
+  }
+  return results;
+};

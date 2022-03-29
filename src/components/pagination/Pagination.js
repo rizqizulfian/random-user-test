@@ -28,6 +28,7 @@ const Pagination = () => {
 
   const fetchUserData = async (page, pageSize) => {
     dispatch(usersActions.setIsLoading(true));
+    dispatch(usersActions.setResetFilter());
     if (!isTouched) {
       const resp = await fetch(urlRandomUser({ page, pageSize }));
       const user = await resp.json();
@@ -36,7 +37,6 @@ const Pagination = () => {
       dispatch(usersActions.getUserPage(page));
     }
     dispatch(usersActions.setIsLoading(false));
-
   };
 
   return (

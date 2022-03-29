@@ -1,70 +1,118 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# A Randomuser web application
 
-## Available Scripts
+## Introduction
+This project demonstrates how to use ReactJS, Redux, Redux-Toolkit, Debounce, and Tailwindcss. It is also including fetch data from API https://randomuser.me/.
 
-In the project directory, you can run:
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Client:** React, Redux, Redux-Toolkit, Debounce, TailwindCSS,  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install with npm
 
-### `npm run build`
+```bash
+  git clone https://github.com/rizqizulfian/random-user-test.git
+  cd random-user-test
+  npm install
+  npm start
+```
+    
+## Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- First Load
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    On first time load, we will fetch data from API Randomuser. Then we will 
+    save that data into redux store. And we will show the retrieved data in list table.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![App Screenshot](https://i.imgur.com/8DZBYbA.png)
 
-### `npm run eject`
+- Search
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    User able to search data with keyword.
+    1. It will trigger API call https://randomuser.me/api/?results=10&keyword={keyword}
+    2. It will search data username contains characters from keyword that user entered.
+![App Screenshot](https://i.imgur.com/jpXMflh.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Back to the top↑](#Introduction)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Filter Gender
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    User able to fetch randomuser with specific gender.
+    1. Trigger API call https://randomuser.me/api/?results=10&gender={gender}.
+        After fetching specific gender, retrieved data will save to redux store
 
-## Learn More
+![App Screenshot](https://i.imgur.com/UG4WAaF.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Back to the top↑](#Introduction)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Sort Column Name
 
-### Code Splitting
+    Will sort column Name ascending or descending
+    1. Trigger API call https://randomuser.me/api/?results=10&sortBy=name&sortOrder={sort}
+    2. Sort column Name by ascending or descending.
+    
+![App Screenshot](https://i.imgur.com/m3gMH96.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+[Back to the top↑](#Introduction)
 
-### Analyzing the Bundle Size
+- Sort Column Email
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    Will sort column Email ascending or descending
+    1. Trigger API call https://randomuser.me/api/?results=10&sortBy=Email&sortOrder={sort}
+    2. Sort column Email by ascending or descending.
+    
+![App Screenshot](https://i.imgur.com/Z7NwQa1.png)
 
-### Making a Progressive Web App
+[Back to the top↑](#Introduction)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Sort Column Gender
 
-### Advanced Configuration
+    Will sort column Gender ascending or descending
+    1. Trigger API call https://randomuser.me/api/?results=10&sortBy=Gender&sortOrder={sort}
+    2. Sort column Gender by ascending or descending.
+    
+![App Screenshot](https://i.imgur.com/HMP4LKN.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+[Back to the top↑](#Introduction)
 
-### Deployment
+- Sort Column Registere Date
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    Will sort column Registere Date ascending or descending
+    1. Trigger API call https://randomuser.me/api/?results=10&sortBy=registered_date&sortOrder=descend
+    2. Sort column Registere Date by ascending or descending.
+    
+![App Screenshot](https://i.imgur.com/KW7PJb8.png)
 
-### `npm run build` fails to minify
+[Back to the top↑](#Introduction)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Pagination
+
+    When user click next page, app will fetch new data based on the next page.
+    1. Trigger API Call https://randomuser.me/api/?results=10&page=2&pageSize=5
+        After fetching new data from the next page, retrieved data will save to redux store
+
+    
+    NOTE: i made only 2 page hardcode, refer to screenshot of project previews
+
+![App Screenshot](https://i.imgur.com/AZcGcU8.png)
+
+[Back to the top↑](#Introduction)
+
+- Reset Filter
+    
+    Will reset all of active filter
+[Back to the top↑](#Introduction)
+## Next Update
+
+- [x]  Design
+- [x]  Development
+- [x]  Documentation
+- [x]  Deployment
+- [ ]  Unit testing
+- [ ]  Refactor
+- [ ]  Implement with React.Memo, useMemo, & useCallback
+- [ ]  Analysis to improve perfomance of web application

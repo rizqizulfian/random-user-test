@@ -7,7 +7,7 @@ This project demonstrates how to use ReactJS, Redux, Redux-Toolkit, Debounce, an
 
 ## Tech Stack
 
-**Client:** React, Redux, Redux-Toolkit, Debounce, TailwindCSS,  
+**Client:** React, Redux, Redux-Toolkit, Debounce, TailwindCSS,
 
 
 ## Installation
@@ -22,6 +22,7 @@ Install with npm
 ```
     
 ## Demo
+Live Demo: https://random-user-test.web.app/
 
 - First Load
 
